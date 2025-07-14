@@ -176,28 +176,27 @@ def secao_localizacao():
     numero = st.secrets["numero_e_comp"]
     bairro = st.secrets["bairro"]
     cidade = st.secrets["cidade_estado"]
+    cep = st.secrets["cep"]
     lat = st.secrets["latitude"]
     lon = st.secrets["longitude"]
-
+    
     col1, col2 = st.columns([1, 4])
 
     with col1:
-        st.markdown(
-            '<p style="font-size: 100px; text-align: center;">🏡</p>', unsafe_allow_html=True)
-
+        st.markdown('<p style="font-size: 100px; text-align: center;">🏡</p>', unsafe_allow_html=True)
+    
     with col2:
-        st.subheader("Nosso Canto em Ouro Branco")
-
+        st.subheader("Nosso Cantinho em Ouro Branco")
+        
         st.markdown(f"""
         - **Endereço:** {rua}, {numero}
         - **Bairro:** {bairro}
         - **Cidade:** {cidade}
-        - **Ponto de Referência:** *Adicione um aqui se quiser (ex: "Próximo à Praça de Eventos")*
         """)
-
-        endereco_completo = f"{rua}, {numero} - {bairro}, {cidade}"
-        st_copy_to_clipboard(
-            "Clique aqui para copiar o endereço completo ✨", endereco_completo, key="copy_button")
+        
+        endereco_completo = f"{rua}, {numero}, {bairro}, {cidade}, CEP: {cep}"
+        
+        st_copy_to_clipboard("Clique aqui para copiar o endereço completo ✨", endereco_completo, key="copy_button")
 
     st.markdown("---")
 
@@ -217,13 +216,13 @@ def secao_localizacao():
             </iframe>
         </div>
     """
-
+    
     components.html(map_html, height=410)
-
+    
+    # --- Rota ---
     st.subheader("Trace sua Rota")
-    origem = st.text_input("Digite seu endereço de partida:",
-                           placeholder="Ex: Rua da Saudade, 123, Belo Horizonte")
-
+    origem = st.text_input("Digite seu endereço de partida:", placeholder="Ex: Rua da Saudade, 123, Belo Horizonte")
+    
     if 'rota_gerada' not in st.session_state:
         st.session_state.rota_gerada = False
 
@@ -236,12 +235,11 @@ def secao_localizacao():
             st.session_state.rota_gerada = False
 
     if st.session_state.rota_gerada and st.session_state.get('origem'):
-        destino_encoded = quote_plus(endereco_completo)
+        destino_encoded = quote_plus(endereco_completo) 
         origem_encoded = quote_plus(st.session_state.origem)
         url_rota = f"https://www.google.com/maps/dir/{origem_encoded}/{destino_encoded}"
         link_html = f'<p style="text-align: center; margin-top: 20px;"><a href="{url_rota}" target="_blank" style="background-color: #FFC107; color: #1E2A38; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; border: 2px solid #FFA000;">✔️ Rota Gerada! Clique aqui para abrir no Google Maps</a></p>'
         st.markdown(link_html, unsafe_allow_html=True)
-
 
 
 def secao_faq():
