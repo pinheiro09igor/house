@@ -194,9 +194,8 @@ def secao_localizacao():
         - **Cidade:** {cidade}
         """)
         
-        endereco_completo = f"{rua}, {numero}, {bairro}, {cidade}, CEP: {cep}"
-        
-        st_copy_to_clipboard("Clique aqui para copiar o endereço completo ✨", endereco_completo, key="copy_button")
+        endereco_para_copiar = f"{rua}, {numero}, {bairro}, {cidade}, CEP: {cep}"
+        st_copy_to_clipboard("Clique aqui para copiar o endereço completo ✨", endereco_para_copiar, key="copy_button")
 
     st.markdown("---")
 
@@ -219,7 +218,6 @@ def secao_localizacao():
     
     components.html(map_html, height=410)
     
-    # --- Rota ---
     st.subheader("Trace sua Rota")
     origem = st.text_input("Digite seu endereço de partida:", placeholder="Ex: Rua da Saudade, 123, Belo Horizonte")
     
@@ -235,12 +233,13 @@ def secao_localizacao():
             st.session_state.rota_gerada = False
 
     if st.session_state.rota_gerada and st.session_state.get('origem'):
-        destino_encoded = quote_plus(endereco_completo) 
+        destino_coordenadas = f"{lat},{lon}"
         origem_encoded = quote_plus(st.session_state.origem)
-        url_rota = f"https://www.google.com/maps/dir/{origem_encoded}/{destino_encoded}"
+        
+        url_rota = f"https://www.google.com/maps/dir/{origem_encoded}/{destino_coordenadas}"
+        
         link_html = f'<p style="text-align: center; margin-top: 20px;"><a href="{url_rota}" target="_blank" style="background-color: #FFC107; color: #1E2A38; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; border: 2px solid #FFA000;">✔️ Rota Gerada! Clique aqui para abrir no Google Maps</a></p>'
         st.markdown(link_html, unsafe_allow_html=True)
-
 
 def secao_faq():
     st.header("🤔 Dúvidas Frequentes (FAQ)")
