@@ -186,7 +186,7 @@ def secao_localizacao():
         st.markdown('<p style="font-size: 100px; text-align: center;">🏡</p>', unsafe_allow_html=True)
     
     with col2:
-        st.subheader("Nosso Cantinho em Ouro Branco")
+        st.subheader("Nosso Canto em Ouro Branco")
         
         st.markdown(f"""
         - **Endereço:** {rua}, {numero}
