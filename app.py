@@ -90,7 +90,6 @@ aplicar_css()
 
 def secao_convite():
     st.title("⛰️ Taaa cheganu... a Festa! 🍻")
-    st.header("Agora com um convite um pouco mais bem elaborado kkkk")
 
     col1, col2 = st.columns([1, 2])
     with col1:
