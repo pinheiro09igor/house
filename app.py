@@ -134,7 +134,7 @@ def secao_rsvp():
                     st.warning("Por favor, preencha seu nome!")
                 else:
                     global df_convidados
-                    # Evitar duplicados
+
                     if nome.lower() in df_convidados['Nome'].str.lower().tolist():
                         st.warning(
                             f"{nome}, você já confirmou! Se precisar alterar algo, me avise no zap.")
@@ -187,7 +187,7 @@ def secao_localizacao():
             '<p style="font-size: 100px; text-align: center;">🏡</p>', unsafe_allow_html=True)
 
     with col2:
-        st.subheader("Nosso Cantinho em Ouro Branco")
+        st.subheader("Nosso Canto em Ouro Branco")
 
         st.markdown(f"""
         - **Endereço:** {rua}, {numero}
